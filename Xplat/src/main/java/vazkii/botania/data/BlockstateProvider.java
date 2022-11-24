@@ -340,6 +340,8 @@ public class BlockstateProvider implements DataProvider {
 		remainingBlocks.remove(livingwoodFence);
 		remainingBlocks.remove(livingwoodFenceGate);
 
+		rotatedMirrored(remainingBlocks, livingrock, getBlockTexture(livingrock));
+
 		// block entities with only particles
 		particleOnly(remainingBlocks, animatedTorch, getBlockTexture(Blocks.REDSTONE_TORCH));
 		particleOnly(remainingBlocks, avatar, getBlockTexture(livingwoodLog));
