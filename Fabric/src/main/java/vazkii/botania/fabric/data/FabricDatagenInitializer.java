@@ -10,12 +10,44 @@ package vazkii.botania.fabric.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.CachedOutput;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 
+import vazkii.botania.common.BotaniaDamageTypes;
 import vazkii.botania.data.*;
 import vazkii.botania.data.recipes.*;
 
+import java.util.concurrent.CompletableFuture;
+
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
+	private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
+			.add(Registries.DAMAGE_TYPE, bootstapContext -> BotaniaDamageTypes.ALL.forEach(bootstapContext::register));
+
+	static class DynamicRegistryProvider implements DataProvider {
+		private final CompletableFuture<HolderLookup.Provider> registriesFuture;
+
+		public DynamicRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+			this.registriesFuture = registriesFuture;
+		}
+
+		@Override
+		public CompletableFuture<?> run(CachedOutput cachedOutput) {
+			return registriesFuture.thenApply(provider -> BUILDER.buildPatch(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), provider));
+		}
+
+		@Override
+		public String getName() {
+			return "Dynamic registries";
+		}
+	}
+
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
 		if (System.getProperty("botania.xplat_datagen") != null) {
@@ -34,6 +66,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	}
 
 	private static void configureXplatDatagen(FabricDataGenerator.Pack pack) {
+		pack.addProvider(DynamicRegistryProvider::new);
 		pack.addProvider((PackOutput output) -> new BlockLootProvider(output));
 		BlockTagProvider blockTagProvider = pack.addProvider(BlockTagProvider::new);
 		pack.addProvider((output, registriesFuture) -> new ItemTagProvider(output, registriesFuture, blockTagProvider.contentsGetter()));
