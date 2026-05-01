@@ -65,6 +65,7 @@ import static vazkii.botania.common.lib.LibBlockNames.*;
 
 public final class BotaniaBlocks {
 	private static final Map<String, Block> ALL = new LinkedHashMap<>(); // Preserve insertion order
+	private static final Map<String, BlockItem> BLOCK_ITEMS = new LinkedHashMap<>();
 
 	private static final BlockBehaviour.StateArgumentPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
 	private static final BlockBehaviour.StatePredicate NO_SUFFOCATION = (state, world, pos) -> false;
@@ -1493,12 +1494,28 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(bifrostPane, props), BuiltInRegistries.BLOCK.getKey(bifrostPane));
 	}
 
-	private static <T extends Block> T make(String name, T block) {
-		var old = ALL.put(name, block);
+	private static <T extends Block> T make(String name, T block, Function<T, BlockItem> makeBlockItem) {
+		Block old = ALL.put(name, block);
 		if (old != null) {
-			throw new IllegalArgumentException("Typo? Duplicate name: " + name);
+			throw new IllegalArgumentException("Typo? Duplicate block ID: " + name);
+		}
+		BlockItem bi = makeBlockItem.apply(block);
+		if (bi != null) {
+			BlockItem oldBI = BLOCK_ITEMS.put(name, bi);
+			if (oldBI != null) {
+				throw new IllegalArgumentException("Typo? Duplicate block item ID: " + name);
+			}
 		}
 		return block;
+	}
+
+	private static <T extends Block> T make(String name, T block) {
+		Item.Properties props = BotaniaItems.defaultBuilder();
+		return make(name, block, b -> new BlockItem(block, props));
+	}
+
+	private static <T extends Block> T makeWithoutBlockItem(String name, T block) {
+		return make(name, block, b -> null);
 	}
 
 	public static void addDispenserBehaviours() {
