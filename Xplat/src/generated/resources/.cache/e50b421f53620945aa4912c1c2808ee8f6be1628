@@ -269,6 +269,7 @@ b8b4ff246937bf6eeb13a4b005de1b51c9505683 assets/botania/models/item/framed_dream
 43d32e7d031485f83a1b4eb56ecb3cc40a456163 assets/botania/models/item/gaia_head.json
 78e81ad0175d6198572fbe99d5c9bb0206fa0172 assets/botania/models/item/gaia_ingot.json
 610f7e31086b03157d61a062a93c7e0026ffeeb1 assets/botania/models/item/gaia_pylon.json
+ea3fb3fc4692993891e848e9fe128ea0b0214256 assets/botania/models/item/gaia_spirit.json
 8ad23f6d47681a336736b657d21474e4a438030a assets/botania/models/item/gaia_spreader.json
 5ac4d15baba7c5a67bd86cc6a45c2cd57f4df111 assets/botania/models/item/ghost_rail.json
 157d32c732ab7f6677a607a180120399e7ff0bb6 assets/botania/models/item/glass_pickaxe.json
@@ -362,7 +363,6 @@ f974ca9ee5b509204cd59bb3741888b0aa6db0b9 assets/botania/models/item/lens_tripwir
 eeeaf997e560ca245ced8119ceaaa97273dc9fa4 assets/botania/models/item/lens_weight.json
 eaa7630b911b8798dabdd6b6c66f08a09f3598df assets/botania/models/item/lexicon.json
 0167c48384ba85555b574b7451095ddb41ba3ec4 assets/botania/models/item/lexicon_elven.json
-2bdb2e217bf64152dde39ffb8f4add5e0e8de12f assets/botania/models/item/life_essence.json
 c81f61793a26ca32966c3e978d69c5350c607ff3 assets/botania/models/item/light_blue_double_flower.json
 754fc05c160ad5e6fdbab331734efcc589931dd2 assets/botania/models/item/light_blue_mushroom.json
 74a546e1577fe60c644dc0d502ff73ff3695b88c assets/botania/models/item/light_blue_mystical_flower.json

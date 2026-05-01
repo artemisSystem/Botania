@@ -232,7 +232,7 @@ public final class LibItemNames {
 	public static final String MANA_DIAMOND = "mana_diamond";
 	public static final String LIVINGWOOD_TWIG = "livingwood_twig";
 	public static final String TERRASTEEL_INGOT = "terrasteel_ingot";
-	public static final String LIFE_ESSENCE = "life_essence";
+	public static final String LIFE_ESSENCE = "gaia_spirit";
 	public static final String REDSTONE_ROOT = "redstone_root";
 	public static final String ELEMENTIUM_INGOT = "elementium_ingot";
 	public static final String PIXIE_DUST = "pixie_dust";

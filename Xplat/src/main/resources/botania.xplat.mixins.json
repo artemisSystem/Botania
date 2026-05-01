@@ -18,6 +18,7 @@
     "CollectingNeighborUpdaterMixin",
     "CreeperAccessor",
     "CreeperMixin",
+    "DataFixersMixin",
     "DispenserBlockAccessor",
     "EntityAccessor",
     "EntityMixin",
